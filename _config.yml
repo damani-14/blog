@@ -1,43 +1,84 @@
-# Welcome to Jekyll!
-#
-# This config file is meant for settings that affect your whole blog, values
-# which you are expected to set up once and rarely edit after that. If you find
-# yourself editing this file very often, consider using Jekyll's data files
-# feature for the data you need to update frequently.
-#
-# For technical reasons, this file is *NOT* reloaded automatically when you use
-# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
+title: Damani Driver
+name: Damani Driver
+email: damanidriver@gmail.com
+description: Geoscience Programming Specialist
 
-# Site settings
-# These are used to personalize your new site. If you look in the HTML files,
-# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
-# You can create any custom variable you would like, and they will be accessible
-# in the templates via {{ site.myvariable }}.
-title: Your awesome title
-email: your-email@example.com
-description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
 baseurl: "/blog"
-url: "https://damani-14.github.io"
-twitter_username: DamaniDriver
-github_username:  damani-14
+url: ""
+
+display_footer: inital  #change this to 'none' if you want to hide the footer copyright text
+
+parallax_image_one: assets/images/startup3.jpg # These are the images used for the parallax background
+parallax_image_two: assets/images/startup3.jpg
+
+project_one: "First Project"
+project_one_description: Describe your project!
+project_one_url: https://github.com/jameshamann/jekyll-material-theme
+project_one_icon: location_on
+
+project_two: Second Project
+project_two_description: Describe your project!
+project_two_url: https://github.com/jameshamann/jekyll-material-theme
+project_two_icon: photo_camera
+
+
+project_three: Third Project
+project_three_description: Describe your project!
+project_three_url: https://github.com/jameshamann/jekyll-material-theme
+project_three_icon: hotel
+
+
+project_four: Fourth Project
+project_four_description: Describe your project!
+project_four_url: https://github.com/jameshamann/jekyll-material-theme
+project_four_icon: restaurant
+
+portfolio_heading: Portfolio
+portfolio_type: cards
+
+syntax_highlighting: true
+# Skill icons from https://konpa.github.io/devicon/
+
+skills:
+  - name: atom
+  - name: bootstrap
+  - name: css3
+  - name: git
+  - name: github
+  - name: html5
+  - name: illustrator
+  - name: inkscape
+  - name: mysql
+  - name: python
+  - name: pycharm
+  - name: visualstudio
+
+icon_size: 50 # font-size of icons in px
+colored: colored # Leave blank for black and white icons
+
+project_button: Github
+
+github: https://github.com/damani-14
+medium: https://medium.com
+
+baseurl: # if your site is located at /blog or /home, enter it here, otherwise leave it empty
+url: http://localhost:4000/ #the url of your site
+
+# Google tracking, if both are filled, tag manager will prevail. Set up GA through GTM in that case
+tag_manager_id: # This looks something like GTM-XXXXXXX
+google_analytics_tracking_id: # This looks something like UA-000000000-0 Head over to https://analytics.google.com/ to setup.
+
+cookies_banner: none # The value "show" will show the cookies banner, the value "none" will hide the banner.
+
+cookie_accept_message: Thanks!
+
+syntax_highlighting: true # include the css for syntax highlighting
 
 # Build settings
 markdown: kramdown
-theme: minima
+# theme: minima
+permalink: pretty
 plugins:
   - jekyll-feed
-
-# Exclude from processing.
-# The following items will not be processed, by default. Create a custom list
-# to override the default setting.
-# exclude:
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
+  - jekyll-assets
+  - jekyll-minifier
