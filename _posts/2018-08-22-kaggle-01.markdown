@@ -1,0 +1,9 @@
+---
+layout: post
+title:  "My First Kaggle Submission"
+date:   2018-08-18 14:31:57 -0500
+categories: blog update
+image: assets/images/kaggle.png
+---
+
+Recently I submitted a machine learning project to <a href="https://www.kaggle.com/ddriver/ddriver-housepricing01">Kaggle</a> using SciKit-Learn to predict house prices. The process was pretty fun, engaging, and I highly recommend it for anyone interested in data science. Check out the project write-up <a href="projects/project1">here</a>!

@@ -1,25 +1,259 @@
 ---
 layout: post
-title:  "Project 1"
-categories: projects project1
+title:  "Machine Learning: Predicting House Prices With Python"
+categories: machinelearning project1
+image: assets/images/Figure_1.png
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A diam sollicitudin tempor id. Eu nisl nunc mi ipsum faucibus vitae aliquet nec ullamcorper. Eget nunc lobortis mattis aliquam faucibus purus in massa tempor. Congue quisque egestas diam in arcu cursus euismod quis viverra. Adipiscing elit ut aliquam purus sit amet. Tempor orci eu lobortis elementum nibh tellus. Velit egestas dui id ornare arcu odio ut sem. Augue lacus viverra vitae congue eu consequat ac. Adipiscing diam donec adipiscing tristique risus nec feugiat in. Non arcu risus quis varius quam quisque id. Enim sit amet venenatis urna cursus eget nunc scelerisque viverra. Adipiscing elit duis tristique sollicitudin nibh sit amet commodo nulla. Mattis nunc sed blandit libero volutpat sed cras. In cursus turpis massa tincidunt dui ut. Turpis egestas sed tempus urna et. Pellentesque habitant morbi tristique senectus et netus. Nisl purus in mollis nunc sed id semper risus in. Viverra nam libero justo laoreet. Eget aliquet nibh praesent tristique magna sit amet purus gravida.
+Multiple linear regression model for predicting house prices using data from:<br>
+<a href="https://www.kaggle.com/c/house-prices-advanced-regression-techniques">Kaggle, House Prices Competition: Advanced Regression Techniques</a>.
 
-Facilisis sed odio morbi quis commodo odio aenean sed adipiscing. Enim ut sem viverra aliquet eget sit. Tortor condimentum lacinia quis vel eros. Tellus elementum sagittis vitae et leo duis ut diam quam. Habitasse platea dictumst quisque sagittis purus sit. Dapibus ultrices in iaculis nunc sed augue lacus. Aenean euismod elementum nisi quis eleifend. Malesuada proin libero nunc consequat interdum varius sit amet mattis. Eu sem integer vitae justo eget magna fermentum. Dignissim enim sit amet venenatis urna. Donec pretium vulputate sapien nec sagittis aliquam malesuada. Sit amet tellus cras adipiscing. Neque laoreet suspendisse interdum consectetur.
+<ul>
+  <li>Submissions: 1
+  <li>Kaggle.com Score: 0.12994
+  <li>Ranking - 08/16/18: 1525 of 4512 (Top 33.8%)<br><br>
 
-Quis varius quam quisque id diam vel. Netus et malesuada fames ac turpis egestas maecenas pharetra. Pellentesque dignissim enim sit amet venenatis urna cursus eget. Netus et malesuada fames ac. Pharetra sit amet aliquam id diam maecenas ultricies mi eget. Integer enim neque volutpat ac tincidunt vitae semper. Sed blandit libero volutpat sed cras ornare arcu dui. Enim nulla aliquet porttitor lacus. Potenti nullam ac tortor vitae purus faucibus ornare suspendisse. Amet nisl purus in mollis nunc sed id semper risus. Neque vitae tempus quam pellentesque nec. Vitae suscipit tellus mauris a diam maecenas sed enim. Libero id faucibus nisl tincidunt eget nullam non nisi. Velit egestas dui id ornare arcu odio. Sem integer vitae justo eget magna fermentum. Sagittis eu volutpat odio facilisis. Enim lobortis scelerisque fermentum dui faucibus in. Consectetur purus ut faucibus pulvinar elementum.
+Required modules<br>
+<a href="https://github.com/damani-14/Kaggle/blob/master/HousePrice/encoder.py">https://github.com/damani-14/Kaggle/blob/master/HousePrice/encoder.py</a><br>
+<ul>
+  <li>encoder.py<br><br>
 
-Consectetur adipiscing elit duis tristique sollicitudin nibh sit amet commodo. In fermentum posuere urna nec tincidunt praesent semper. Gravida arcu ac tortor dignissim convallis aenean et. Lectus arcu bibendum at varius. Lorem mollis aliquam ut porttitor leo a. In aliquam sem fringilla ut morbi tincidunt augue interdum. Arcu non odio euismod lacinia at quis risus. Dui sapien eget mi proin sed libero enim sed. Nullam ac tortor vitae purus faucibus ornare suspendisse sed nisi. Pretium nibh ipsum consequat nisl. Ullamcorper morbi tincidunt ornare massa eget egestas purus. Et leo duis ut diam quam nulla. Quis varius quam quisque id diam vel quam elementum pulvinar. Donec ultrices tincidunt arcu non sodales. Pulvinar sapien et ligula ullamcorper malesuada proin. Aliquam sem fringilla ut morbi tincidunt. Cursus mattis molestie a iaculis. Nisl condimentum id venenatis a.
+Required data sets<br>
+<a href="https://www.kaggle.com/c/house-prices-advanced-regression-techniques/data">https://www.kaggle.com/c/house-prices-advanced-regression-techniques/data</a>
+<ul>
+  <li>train.csv
+  <li>test.csv
+<br>
 
-Et netus et malesuada fames ac turpis egestas integer eget. In fermentum posuere urna nec tincidunt praesent semper feugiat nibh. Pharetra convallis posuere morbi leo urna molestie. Ut tellus elementum sagittis vitae et leo duis. A cras semper auctor neque vitae tempus quam pellentesque. Sed egestas egestas fringilla phasellus faucibus scelerisque eleifend donec. Tortor at auctor urna nunc id cursus metus. In metus vulputate eu scelerisque felis imperdiet proin. Mollis aliquam ut porttitor leo. Donec et odio pellentesque diam volutpat commodo sed egestas egestas. Praesent semper feugiat nibh sed pulvinar proin gravida hendrerit lectus. Velit sed ullamcorper morbi tincidunt ornare. Pellentesque adipiscing commodo elit at. Justo laoreet sit amet cursus sit amet dictum sit. Aenean sed adipiscing diam donec adipiscing tristique risus nec feugiat.
+<div style="background-color: black;">
+{% highlight python %}
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error
+from sklearn import linear_model
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A diam sollicitudin tempor id. Eu nisl nunc mi ipsum faucibus vitae aliquet nec ullamcorper. Eget nunc lobortis mattis aliquam faucibus purus in massa tempor. Congue quisque egestas diam in arcu cursus euismod quis viverra. Adipiscing elit ut aliquam purus sit amet. Tempor orci eu lobortis elementum nibh tellus. Velit egestas dui id ornare arcu odio ut sem. Augue lacus viverra vitae congue eu consequat ac. Adipiscing diam donec adipiscing tristique risus nec feugiat in. Non arcu risus quis varius quam quisque id. Enim sit amet venenatis urna cursus eget nunc scelerisque viverra. Adipiscing elit duis tristique sollicitudin nibh sit amet commodo nulla. Mattis nunc sed blandit libero volutpat sed cras. In cursus turpis massa tincidunt dui ut. Turpis egestas sed tempus urna et. Pellentesque habitant morbi tristique senectus et netus. Nisl purus in mollis nunc sed id semper risus in. Viverra nam libero justo laoreet. Eget aliquet nibh praesent tristique magna sit amet purus gravida.
+def main():
+#-----------------
+# Data Exploration
+#-----------------
 
-Facilisis sed odio morbi quis commodo odio aenean sed adipiscing. Enim ut sem viverra aliquet eget sit. Tortor condimentum lacinia quis vel eros. Tellus elementum sagittis vitae et leo duis ut diam quam. Habitasse platea dictumst quisque sagittis purus sit. Dapibus ultrices in iaculis nunc sed augue lacus. Aenean euismod elementum nisi quis eleifend. Malesuada proin libero nunc consequat interdum varius sit amet mattis. Eu sem integer vitae justo eget magna fermentum. Dignissim enim sit amet venenatis urna. Donec pretium vulputate sapien nec sagittis aliquam malesuada. Sit amet tellus cras adipiscing. Neque laoreet suspendisse interdum consectetur.
+    # Importing Data
+    train = pd.read_csv('train.csv')
+    test = pd.read_csv('test.csv')
 
-Quis varius quam quisque id diam vel. Netus et malesuada fames ac turpis egestas maecenas pharetra. Pellentesque dignissim enim sit amet venenatis urna cursus eget. Netus et malesuada fames ac. Pharetra sit amet aliquam id diam maecenas ultricies mi eget. Integer enim neque volutpat ac tincidunt vitae semper. Sed blandit libero volutpat sed cras ornare arcu dui. Enim nulla aliquet porttitor lacus. Potenti nullam ac tortor vitae purus faucibus ornare suspendisse. Amet nisl purus in mollis nunc sed id semper risus. Neque vitae tempus quam pellentesque nec. Vitae suscipit tellus mauris a diam maecenas sed enim. Libero id faucibus nisl tincidunt eget nullam non nisi. Velit egestas dui id ornare arcu odio. Sem integer vitae justo eget magna fermentum. Sagittis eu volutpat odio facilisis. Enim lobortis scelerisque fermentum dui faucibus in. Consectetur purus ut faucibus pulvinar elementum.
+    # Set plot parameters
+    plt.style.use(style='ggplot')
+    plt.rcParams['figure.figsize'] = (7, 5)
 
-Consectetur adipiscing elit duis tristique sollicitudin nibh sit amet commodo. In fermentum posuere urna nec tincidunt praesent semper. Gravida arcu ac tortor dignissim convallis aenean et. Lectus arcu bibendum at varius. Lorem mollis aliquam ut porttitor leo a. In aliquam sem fringilla ut morbi tincidunt augue interdum. Arcu non odio euismod lacinia at quis risus. Dui sapien eget mi proin sed libero enim sed. Nullam ac tortor vitae purus faucibus ornare suspendisse sed nisi. Pretium nibh ipsum consequat nisl. Ullamcorper morbi tincidunt ornare massa eget egestas purus. Et leo duis ut diam quam nulla. Quis varius quam quisque id diam vel quam elementum pulvinar. Donec ultrices tincidunt arcu non sodales. Pulvinar sapien et ligula ullamcorper malesuada proin. Aliquam sem fringilla ut morbi tincidunt. Cursus mattis molestie a iaculis. Nisl condimentum id venenatis a.
+    # Investigating response distribution
+    plt.hist(train.SalePrice, color='green')
+    plt.show()
 
-Et netus et malesuada fames ac turpis egestas integer eget. In fermentum posuere urna nec tincidunt praesent semper feugiat nibh. Pharetra convallis posuere morbi leo urna molestie. Ut tellus elementum sagittis vitae et leo duis. A cras semper auctor neque vitae tempus quam pellentesque. Sed egestas egestas fringilla phasellus faucibus scelerisque eleifend donec. Tortor at auctor urna nunc id cursus metus. In metus vulputate eu scelerisque felis imperdiet proin. Mollis aliquam ut porttitor leo. Donec et odio pellentesque diam volutpat commodo sed egestas egestas. Praesent semper feugiat nibh sed pulvinar proin gravida hendrerit lectus. Velit sed ullamcorper morbi tincidunt ornare. Pellentesque adipiscing commodo elit at. Justo laoreet sit amet cursus sit amet dictum sit. Aenean sed adipiscing diam donec adipiscing tristique risus nec feugiat.
+        # NOTE: Response variable is skewed
+    print(train.SalePrice.skew(),'\n')
+
+        # Adjust for Skew
+    response = np.log(train.SalePrice)
+
+        # Check
+    print(train.SalePrice.skew(),'\n')
+
+#--------------------
+# Feature Engineering
+#--------------------
+
+    # Handling Numeric Variables
+    #---------------------------
+
+    quant_feat = train.select_dtypes(include = (np.number))
+    corr = quant_feat.corr()
+
+
+        # Investigating Correlations
+
+    print(corr['SalePrice'].sort_values(ascending=False)[:5], '\n')
+    print(corr['SalePrice'].sort_values(ascending=False)[-5:], '\n')
+
+
+        # Visualizing Positive Correlations
+
+    print("Overall Quality: \n", train.OverallQual.unique(), "\n")
+    print("Above Ground Living Area (ft-sq): \n", train.GrLivArea.unique(), "\n")
+    print("No. of Cars in Garage: \n", train.GarageCars.unique(), "\n")
+    print("Garage Area (sq-ft): \n", train.GarageArea.unique(), "\n")
+
+    quality_pivot = train.pivot_table(index='OverallQual',
+                                   values='SalePrice',aggfunc=np.median)
+    quality_pivot.plot(kind='bar', color='green')
+    plt.xlabel('Overall Quality')
+    plt.ylabel('Median Sale Price')
+    plt.show()
+    # NOTE: Outliers @ 4000+
+
+    livArea = plt.scatter(x=train['GrLivArea'],y=response)
+    plt.xlabel('Above Ground Living Area (ft^2)')
+    plt.ylabel('Median Sale Price')
+    plt.show()
+
+    cars_pivot = train.pivot_table(index='GarageCars',
+                                   values='SalePrice',aggfunc=np.median)
+    cars_pivot.plot(kind='bar', color='green')
+    plt.xlabel('Overall Quality')
+    plt.ylabel('Median Sale Price')
+    plt.show()
+
+    garageArea = plt.scatter(x=train['GarageArea'],y=response)
+    plt.xlabel('Garage Area (ft^2)')
+    plt.ylabel('Median Sale Price')
+    plt.show()
+    # NOTE: Outliers @ 1200+
+
+
+        # Visualizing Negative Correlations
+
+    print('Year Sold: \n', train.YrSold.unique(), '\n')
+    print('Overall Condition: \n', train.OverallCond.unique(), '\n')
+    print('Building Class: \n', train.MSSubClass.unique(), '\n')
+    print('Enclosed Porch: \n', train.EnclosedPorch.unique(), '\n')
+    print('Above Ground Kitchen: \n', train.KitchenAbvGr.unique(), '\n')
+
+    year_pivot = train.pivot_table(index='YrSold',
+                                    values='SalePrice',aggfunc=np.median)
+    year_pivot.plot(kind='bar', color='green')
+    plt.xlabel('Year Sold')
+    plt.ylabel('Median Sale Price')
+    plt.show()
+
+    cond_pivot = train.pivot_table(index='OverallCond',
+                                    values='SalePrice',aggfunc=np.median)
+    cond_pivot.plot(kind='bar', color='green')
+    plt.xlabel('Overall Cond')
+    plt.ylabel('Median Sale Price')
+    plt.show()
+
+    bldg_pivot = train.pivot_table(index='MSSubClass',
+                                    values='SalePrice',aggfunc=np.median)
+    bldg_pivot.plot(kind='bar', color='green')
+    plt.xlabel('Building Class')
+    plt.ylabel('Median Sale Price')
+    plt.show()
+
+    porch_plot = plt.scatter(x=train['EnclosedPorch'],y=response)
+    plt.xlabel('Enclosed Porch Area (ft^2)')
+    plt.ylabel('Median Sale Price')
+    plt.show()
+    # NOTE: Outliers @ 400+
+
+    ktch_pivot = train.pivot_table(index='KitchenAbvGr',
+                                    values='SalePrice',aggfunc=np.median)
+    ktch_pivot.plot(kind='bar', color='green')
+    plt.xlabel('Kitchen Above Ground(?)')
+    plt.ylabel('Median Sale Price')
+    plt.show()
+
+        # Removing Outliers
+
+    livArea = plt.scatter(x=train['GrLivArea'],y=response)
+    plt.xlabel('Above Ground Living Area (ft^2)')
+    plt.ylabel('Median Sale Price')
+    plt.title('LIVING AREA')
+    plt.show()
+
+    train = train[train['GrLivArea'] < 4000]
+    response = np.log(train.SalePrice)
+    livArea = plt.scatter(x=train['GrLivArea'],y=response)
+    plt.xlabel('Above Ground Living Area (ft^2)')
+    plt.ylabel('Median Sale Price')
+    plt.title('Outliers Removed')
+    plt.show()
+
+    garageArea = plt.scatter(x=train['GarageArea'],y=response)
+    plt.xlabel('Garage Area (ft^2)')
+    plt.ylabel('Median Sale Price')
+    plt.title('GARAGE AREA')
+    plt.show()
+
+    train = train[train['GarageArea'] < 1200]
+    response = np.log(train.SalePrice)
+    garageArea = plt.scatter(x=train['GarageArea'],y=response)
+    plt.xlabel('Garage Area (ft^2)')
+    plt.ylabel('Median Sale Price')
+    plt.title('Outliers Removed')
+    plt.show()
+
+    porch_plot = plt.scatter(x=train['EnclosedPorch'],y=response)
+    plt.xlabel('Enclosed Porch Area (ft^2)')
+    plt.ylabel('Median Sale Price')
+    plt.title('ENCLOSED PORCH')
+    plt.show()
+
+    train = train[train['EnclosedPorch'] < 400]
+    response = np.log(train.SalePrice)
+    porch_plot = plt.scatter(x=train['EnclosedPorch'],y=response)
+    plt.xlabel('Enclosed Porch Area (ft^2)')
+    plt.ylabel('Median Sale Price')
+    plt.title('Outliers Removed')
+    plt.show()
+
+
+    # Handling Non-Numeric Variables
+    #-------------------------------
+
+    qual_feat = train.select_dtypes(exclude=[np.number])
+    quals = qual_feat.columns.values[np.newaxis]
+    print('Qualitative Variables: \n',quals,'\n')
+
+        # Feature Encoding Module
+
+    import encoder
+    train, test = encoder(train, test)
+
+    # Handling Null Values
+    # ---------------------
+
+        # Visualizing
+
+    nulls = pd.DataFrame(train.isnull().sum().sort_values(ascending=False)[:25])
+    nulls.columns = ['Null Count']
+    nulls.index.name = 'PREDICTOR'
+    print(nulls)
+
+        # Interpolation
+
+    data = train.select_dtypes(include=[np.number]).interpolate().dropna()
+    print('\n Interp_NewNulls: \n', sum(data.isnull().sum() != 0))
+
+#---------------
+# Model Building
+#---------------
+
+    y = np.log(train.SalePrice)
+    x = data.drop(['SalePrice', 'Id'], axis=1)
+
+    x_train, x_test, y_train, y_test = train_test_split(
+        x, y, random_state=42, test_size=.33
+    )
+
+    lr = linear_model.LinearRegression()
+    linReg = lr.fit(x_train, y_train)
+    print('\n\n R-Squared: ', linReg.score(x_test, y_test))
+
+    predictions = linReg.predict(x_test)
+    print('\n\n RMSE: ', mean_squared_error(y_test, predictions))
+
+    actual = y_test
+    plt.scatter(predictions, actual, alpha=.75, color='black')
+    plt.xlabel('Predicted Price')
+    plt.ylabel('Actual Price')
+    plt.title('Linear Regression Model')
+    overlay = 'R-Squared: {}\nRMSE: {}'.format(
+        linReg.score(x_test, y_test),
+        mean_squared_error(y_test, predictions))
+    plt.annotate(s=overlay, xy=(11.7, 10.6))
+    plt.show()
+
+main()
+{% endhighlight %}
+</div>
