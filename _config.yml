@@ -11,32 +11,32 @@ display_footer: inital  #change this to 'none' if you want to hide the footer co
 parallax_image_one: assets/images/bg-5.jpg # These are the images used for the parallax background
 parallax_image_two: assets/images/bg-5.jpg
 
-project_one: "Machine Learning: Predicting House Prices With Python"
-project_one_description: Multiple linear regression exercise using SciKit-Learn.
+project_one: "Machine Learning: Predictive Modelling in Python and R"
+project_one_description: Supervised and unsupervised exercises using R, Pandas, NumPy, SciPy, and SciKit-Learn.
 project_one_url: projects/project1
 project_one_icon: location_on
 
-project_two: "Coming Soon: Annual Crime Statistics in the Buroughs of London"
-project_two_description: Predictive modelling and geospatial analysis.
+project_two: "Under Development<br>Geospatial Analysis: Statistical Visualizations using QGIS"
+project_two_description: Predictive modelling and geospatial analysis using Quantum GIS and R.
 project_two_url: projects/project2
 project_two_icon: photo_camera
 
 
-project_three: Third Project
-project_three_description: Describe your project!
-project_three_url: https://github.com/jameshamann/jekyll-material-theme
+project_three: "Coming Soon<br>Big Data: Wrangling Continuous Data in MATLAB, Python, and R"
+project_three_description: Data processing and algorithm development using several statistical programming environments and libraries.
+project_three_url:
 project_three_icon: hotel
 
 
-project_four: Fourth Project
-project_four_description: Describe your project!
-project_four_url: https://github.com/jameshamann/jekyll-material-theme
+project_four: "Coming Soon<br>Remote Sensing: Image Classification and Quantification using Sentinel-2 Data"
+project_four_description: Image classification and quantification using the Sentinel-2 Toolbox (S2TBX), QGIS, Python, and R.
+project_four_url:
 project_four_icon: restaurant
 
-project_five: Fifth Project
-project_four_description: Describe your project!
-project_four_url: https://github.com/jameshamann/jekyll-material-theme
-project_four_icon: restaurant
+project_five:
+project_five_description:
+project_five_url:
+project_five_icon: restaurant
 
 portfolio_heading: Portfolio
 portfolio_type: cards
