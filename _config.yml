@@ -1,7 +1,7 @@
 title: Damani Driver
 name: Damani Driver
 email: damanidriver@gmail.com
-description: Geoscience Programming Specialist
+description: Geoscientist
 
 baseurl: "/blog"
 url: ""
@@ -28,7 +28,7 @@ project_three_url:
 project_three_icon: hotel
 
 
-project_four: "Coming Soon<br>Remote Sensing: Image Classification and Quantification using Sentinel-2 Data"
+project_four: "Coming Soon<br>Remote Sensing: Image Classification using Sentinel-2 Data and S2TBX"
 project_four_description: Image classification and quantification using the Sentinel-2 Toolbox (S2TBX), QGIS, Python, and R.
 project_four_url:
 project_four_icon: restaurant
