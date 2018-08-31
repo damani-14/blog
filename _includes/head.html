@@ -13,15 +13,15 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" type="text/css" href="{{site.baseurl}}/assets/css/materialize.css">
       {% if site.syntax_highlighting %}
-        <link rel="stylesheet" href="/blog//assets/css/prismOkaidia.css">
+        <link rel="stylesheet" type="text/css" href="{{site.baseurl}}/assets/main.css">
       {% endif %}
-
+      <link rel="stylesheet" href="{{site.baseurl}}/assets/css/prismOkaidia.css">
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <link rel="stylesheet" href="https://cdn.rawgit.com/konpa/devicon/df6431e323547add1b4cf45992913f15286456d3/devicon.min.css">
       <title>{{site.title}}</title>
     </head>
     <body>
-      <script src="/blog/assets/js/prismOkaidia.js"></script>
+      <script src="{site.baseurl}}/assets/js/prismOkaidia.js"></script>
       {% if site.tag_manager_id and jekyll.environment == 'production' %}
         <!-- Google Tag Manager (noscript) -->
           <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{site.tag_manager_id}}"
