@@ -1,33 +1,28 @@
 ---
-layout: post
+layout: default
 title:  "Machine Learning: Predicting House Prices With Python"
 categories: machinelearning project1
 image: assets/images/Figure_1.png
 ---
 
-<hr>
+<hr><br>
 <h4>Multiple Regression Model</h4>
+
+<p style="font-size: 16pt;"><b>Overview</b></p>
+
 <p>All data can be found here:<br>
 <a href="https://www.kaggle.com/c/house-prices-advanced-regression-techniques">Kaggle, House Prices Competition: Advanced Regression Techniques</a>.</p>
 
-<ul>
-  <li>Submissions: 1
-  <li>Kaggle.com Score: 0.12994
-  <li>Ranking - 08/16/18: 1525 of 4512 (Top 33.8%)<br><br>
+<p>During the feature engineering stages, I developed an encoder that you may find useful. Get it <a href="https://github.com/damani-14/Kaggle/blob/master/HousePrice/encoder.py">here</a>!</p>
 
-Required modules<br>
-<a href="https://github.com/damani-14/Kaggle/blob/master/HousePrice/encoder.py">https://github.com/damani-14/Kaggle/blob/master/HousePrice/encoder.py</a><br>
-<ul>
-  <li>encoder.py<br><br>
+<p style="font-size: 16pt;"><b>Submission Details</b></p>
 
-Required data sets<br>
-<a href="https://www.kaggle.com/c/house-prices-advanced-regression-techniques/data">https://www.kaggle.com/c/house-prices-advanced-regression-techniques/data</a>
-<ul>
-  <li>train.csv
-  <li>test.csv
-<br>
-<hr>
-<br>
+<p><b>Submissions</b>: 1<br>
+  <b>Kaggle Score</b>: 0.12994<br>
+  <b>Ranking</b>: 1525 of 4512 (Top 33.8%)</p>
+
+<hr><br>
+
 <h4>Importing the Necessary Libraries</h4>
 
 <div class="card"><pre><code class="language-python">
@@ -37,14 +32,13 @@ import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
 from sklearn import linear_model
-</code></pre></div>
+</code></pre></div><br>
+
+<hr>
+<h4>Data Exploration</h4>
 
 <div class="card"><pre><code class="language-python">
 def main():
-
-  #-----------------
-  # Data Exploration
-  #-----------------
 
     # Importing Data
   train = pd.read_csv('train.csv')
@@ -67,12 +61,14 @@ def main():
       # Check
   print(train.SalePrice.skew(),'\n')
 
-  #--------------------
-  # Feature Engineering
-  #--------------------
+</code></pre></div><br>
 
-    # Handling Numeric Variables
-    #---------------------------
+<hr>
+<h4>Feature Engineering</h4>
+
+<div class="card"><pre><code class="language-python">
+  # Handling Numeric Variables
+  #---------------------------
 
   quant_feat = train.select_dtypes(include = (np.number))
   corr = quant_feat.corr()
@@ -205,20 +201,31 @@ def main():
   plt.show()
 
 
-    # Handling Non-Numeric Variables
-    #-------------------------------
+  # Handling Non-Numeric Variables
+  #-------------------------------
 
   qual_feat = train.select_dtypes(exclude=[np.number])
   quals = qual_feat.columns.values[np.newaxis]
   print('Qualitative Variables: \n',quals,'\n')
+</code></pre></div><br>
 
-    # Feature Encoding Module
+<hr>
+<h4>Feature Encoding</h4>
 
+<div class="card"><pre><code class="language-python">
   import encoder
   train, test = encoder(train, test)
+</code></pre></div>
 
-    # Handling Null Values
-    # ---------------------
+View the encoder module on my <a href="https://github.com/damani-14/Kaggle/blob/master/HousePrice/encoder.py">GitHub</a>.
+
+<br>
+<hr>
+<h4>Null Values</h4>
+
+<div class="card"><pre><code class="language-python">
+  # Handling Null Values
+  # ---------------------
 
     # Visualizing
 
@@ -231,11 +238,12 @@ def main():
 
   data = train.select_dtypes(include=[np.number]).interpolate().dropna()
   print('\n Interp_NewNulls: \n', sum(data.isnull().sum() != 0))
+</code></pre></div><br>
 
-  #---------------
-  # Model Building
-  #---------------
+<hr>
+<h4>Multiple Regression Model</h4>
 
+<div class="card"><pre><code class="language-python">
   y = np.log(train.SalePrice)
   x = data.drop(['SalePrice', 'Id'], axis=1)
 
