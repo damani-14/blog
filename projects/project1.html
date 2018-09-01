@@ -100,7 +100,7 @@ from sklearn import linear_model
   plt.style.use(style='ggplot')
   plt.rcParams['figure.figsize'] = (7, 5)
 
-  # Investigating response distribution
+    # Investigating response distribution
   plt.hist(train.SalePrice, color='blue')
   plt.title('Response Skew')
   plt.xlabel('Median Home Price (in 1000s, USD')
@@ -115,7 +115,7 @@ from sklearn import linear_model
 
 <div class="card">
 <pre>
-      <code class="language-python"># NOTE: Response variable is skewed
+    <code class="language-python"># NOTE: Response variable is skewed
   print(train.SalePrice.skew(),'\n')
 </code></pre>
 </div>
@@ -127,10 +127,10 @@ The initial skew is <b>1.8828757597682129</b>.
 
 <div class="card">
 <pre>
-      <code class="language-python"># Adjust for Skew
+    <code class="language-python"># Adjust for Skew
   response = np.log(train.SalePrice)
 
-      # Check
+    # Check
   plt.hist(response, color='blue')
   plt.xlabel('Median Home Price (in 1000s, USD')
   plt.title('Response Transformation')
@@ -754,6 +754,143 @@ View the encoder module on my <a href="https://github.com/damani-14/Kaggle/blob/
 </code></pre>
 </div>
 
+<table class="table table-sm table-hover table-dark">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Predictor</th>
+      <th scope="col">Null Count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>PoolQC</td>
+      <td>1447</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>MiscFeature</td>
+      <td>1398</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Alley</td>
+      <td>1360</td>
+    </tr>
+    <tr>
+      <th scope="row">4</th>
+      <td>Fence</td>
+      <td>1172</td>
+    </tr>
+    <tr>
+      <th scope="row">5</th>
+      <td>FireplaceQu</td>
+      <td>689</td>
+    </tr>
+    <tr>
+      <th scope="row">6</th>
+      <td>LotFrontage</td>
+      <td>258</td>
+    </tr>
+    <tr>
+      <th scope="row">7</th>
+      <td>GarageType</td>
+      <td>81</td>
+    </tr>
+    <tr>
+      <th scope="row">8</th>
+      <td>GarageYrBlt</td>
+      <td>81</td>
+    </tr>
+    <tr>
+      <th scope="row">9</th>
+      <td>GarageFinish</td>
+      <td>81</td>
+    </tr>
+    <tr>
+      <th scope="row">10</th>
+      <td>GarageQual</td>
+      <td>81</td>
+    </tr>
+    <tr>
+      <th scope="row">11</th>
+      <td>GarageCond</td>
+      <td>81</td>
+    </tr>
+    <tr>
+      <th scope="row">12</th>
+      <td>BsmtFinType2</td>
+      <td>38</td>
+    </tr>
+    <tr>
+      <th scope="row">13</th>
+      <td>BsmtExposure</td>
+      <td>38</td>
+    </tr>
+    <tr>
+      <th scope="row">14</th>
+      <td>BsmtFinType1</td>
+      <td>37</td>
+    </tr>
+    <tr>
+      <th scope="row">15</th>
+      <td>BsmtCond</td>
+      <td>37</td>
+    </tr>
+    <tr>
+      <th scope="row">16</th>
+      <td>BsmtQual</td>
+      <td>37</td>
+    </tr>
+    <tr>
+      <th scope="row">17</th>
+      <td>MasVnrArea</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th scope="row">18</th>
+      <td>MasVnrType</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th scope="row">19</th>
+      <td>Electrical</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th scope="row">20</th>
+      <td>LotArea</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th scope="row">21</th>
+      <td>Fireplaces</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th scope="row">22</th>
+      <td>1stFlrSF</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th scope="row">23</th>
+      <td>2ndFlrSF</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th scope="row">24</th>
+      <td>LowQualFinSF</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th scope="row">25</th>
+      <td>GrLivArea</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+
 <div class="container-fluid" style="font-size: 12pt; text-align: center;">
   <b>Interpolation</b>
 </div>
@@ -765,6 +902,19 @@ View the encoder module on my <a href="https://github.com/damani-14/Kaggle/blob/
 </code></pre>
 </div>
 <br>
+
+<table class="table table-sm table-hover table-dark">
+  <thead>
+    <tr>
+      <th scope="col">New Null Count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
 
 <div class="container-fluid">
   Return to <a href="#top">top</a>
@@ -785,15 +935,31 @@ View the encoder module on my <a href="https://github.com/damani-14/Kaggle/blob/
   lr = linear_model.LinearRegression()
   linReg = lr.fit(x_train, y_train)
   print('\n\n R-Squared: ', linReg.score(x_test, y_test))
+</code></pre>
+</div>
 
-  predictions = linReg.predict(x_test)
+<div class="container-fluid">
+  <b>R-Squared</b>: 0.8965577954580906
+</div>
+
+<div class="card">
+<pre>
+  <code class="language-python">predictions = linReg.predict(x_test)
   print('\n\n RMSE: ', mean_squared_error(y_test, predictions))
+</code></pre>
+</div>
 
-  actual = y_test
+<div class="container-fluid">
+  <b>RMSE</b>: 0.017441925615992563
+</div>
+
+<div class="card">
+<pre>
+  <code class="language-python">actual = y_test
   plt.scatter(predictions, actual, alpha=.75, color='black')
   plt.xlabel('Predicted Price')
   plt.ylabel('Actual Price')
-  plt.title('Linear Regression Model')
+  plt.title('Multiple Regression Model')
   overlay = 'R-Squared: {}\nRMSE: {}'.format(
       linReg.score(x_test, y_test),
       mean_squared_error(y_test, predictions))
@@ -803,3 +969,13 @@ View the encoder module on my <a href="https://github.com/damani-14/Kaggle/blob/
 main()
 </code></pre>
 </div>
+
+<div class="container">
+  <img class="img-fluid" src="{{site.baseurl}}/assets/images/prj1/prj1_18.png">
+</div>
+<br>
+
+<div class="container-fluid">
+  Return to <a href="#top">top</a>
+</div>
+<hr>
