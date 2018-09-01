@@ -7,7 +7,7 @@ image: assets/images/Figure_1.png
 
 <hr>
 <br>
-<h4><b>Multiple Regression Model</b></h4>
+<h4 id="top"><b>Multiple Regression Model</b></h4>
 <br>
 <p style="font-size: 14pt;"><b>Overview</b></p>
 <p>All data can be found here:<br>
@@ -82,6 +82,11 @@ from sklearn import linear_model
 </code></pre>
 </div>
 <br>
+
+<div class="container-fluid">
+  Return to <a href="#top">top</a>
+</div>
+
 <hr>
 <h4 id="sec2"><b>Data Exploration</b></h4>
 <div class="card">
@@ -148,10 +153,13 @@ The initial skew is <b>1.8828757597682129</b>.
 <div class="container-fluid">
 The skew is now <b>0.12133506220520406</b>.
 </div>
-
-
 <br>
+
+<div class="container-fluid">
+  Return to <a href="#top">top</a>
+</div>
 <hr>
+
 <h4 id="sec3"><b>Feature Engineering</b></h4>
 <br>
 
@@ -408,111 +416,311 @@ and the top five negatively correlated predictors.
 <div class="card">
 <pre>
   <code class="language-python">print('Year Sold: \n', train.YrSold.unique(), '\n')
-  print('Overall Condition: \n', train.OverallCond.unique(), '\n')
-  print('Building Class: \n', train.MSSubClass.unique(), '\n')
-  print('Enclosed Porch: \n', train.EnclosedPorch.unique(), '\n')
-  print('Above Ground Kitchen: \n', train.KitchenAbvGr.unique(), '\n')
+</code></pre>
+</div>
 
-  year_pivot = train.pivot_table(index='YrSold',
+<table class="table table-sm table-dark">
+  <thead>
+    <tr>
+      <th scope="col">Year Sold (Unique Values):</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>[2008 2007 2006 2009 2010]</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="card">
+<pre>
+  <code class="language-python">year_pivot = train.pivot_table(index='YrSold',
                                   values='SalePrice',aggfunc=np.median)
-  year_pivot.plot(kind='bar', color='green')
+  year_pivot.plot(kind='bar', color='blue')
   plt.xlabel('Year Sold')
   plt.ylabel('Median Sale Price')
   plt.show()
+</code></pre>
+</div>
 
-  cond_pivot = train.pivot_table(index='OverallCond',
+<div class="container">
+  <img class="img-fluid" src="{{site.baseurl}}/assets/images/prj1/prj1_7.png">
+</div>
+<br>
+
+<div class="card">
+<pre>
+  <code class="language-python">print('Overall Condition: \n', train.OverallCond.unique(), '\n')
+</code></pre>
+</div>
+
+<table class="table table-sm table-dark">
+  <thead>
+    <tr>
+      <th scope="col">Overall Condition (Unique Values):</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>[5 8 6 7 4 2 3 9 1]</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="card">
+<pre>
+  <code class="language-python">cond_pivot = train.pivot_table(index='OverallCond',
                                   values='SalePrice',aggfunc=np.median)
-  cond_pivot.plot(kind='bar', color='green')
+  cond_pivot.plot(kind='bar', color='blue')
   plt.xlabel('Overall Cond')
   plt.ylabel('Median Sale Price')
   plt.show()
+</code></pre>
+</div>
 
-  bldg_pivot = train.pivot_table(index='MSSubClass',
+<div class="container">
+  <img class="img-fluid" src="{{site.baseurl}}/assets/images/prj1/prj1_8.png">
+</div>
+<br>
+
+<div class="card">
+<pre>
+  <code class="language-python">print('Building Class: \n', train.MSSubClass.unique(), '\n')
+</code></pre>
+</div>
+
+<table class="table table-sm table-dark">
+  <thead>
+    <tr>
+      <th scope="col">Building Class (Unique Values):</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>[60  20  70  50 190  45  90 120  30  85  80 160  75 180  40]</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="card">
+<pre>
+  <code class="language-python">bldg_pivot = train.pivot_table(index='MSSubClass',
                                   values='SalePrice',aggfunc=np.median)
-  bldg_pivot.plot(kind='bar', color='green')
+  bldg_pivot.plot(kind='bar', color='blue')
   plt.xlabel('Building Class')
   plt.ylabel('Median Sale Price')
   plt.show()
+</code></pre>
+</div>
 
-  porch_plot = plt.scatter(x=train['EnclosedPorch'],y=response)
+<div class="container">
+  <img class="img-fluid" src="{{site.baseurl}}/assets/images/prj1/prj1_9.png">
+</div>
+<br>
+
+<div class="card">
+<pre>
+  <code class="language-python">print('Enclosed Porch: \n', train.EnclosedPorch.unique(), '\n')
+</code></pre>
+</div>
+
+<table class="table table-sm table-dark">
+  <thead>
+    <tr>
+      <th scope="col">Enclosed Porch Area:</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>120 unique values</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="card">
+<pre>
+  <code class="language-python">porch_plot = plt.scatter(x=train['EnclosedPorch'],y=response,color='black')
   plt.xlabel('Enclosed Porch Area (ft^2)')
   plt.ylabel('Median Sale Price')
   plt.show()
   # NOTE: Outliers @ 400+
+</code></pre>
+</div>
 
-  ktch_pivot = train.pivot_table(index='KitchenAbvGr',
+<div class="container">
+  <img class="img-fluid" src="{{site.baseurl}}/assets/images/prj1/prj1_10.png">
+</div>
+<br>
+
+<div class="card">
+<pre>
+  <code class="language-python">print('Total Rooms Above Ground: \n', train.KitchenAbvGr.unique(), '\n')
+</code></pre>
+</div>
+
+<div class="container-fluid">
+  NOTE: <b>KitchenAbvGr</b> actually refers to total number of rooms above ground.
+</div>
+<br>
+
+<table class="table table-sm table-dark">
+  <thead>
+    <tr>
+      <th scope="col">Total Rooms Above Ground (Unique Values):</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>[1 2 3 0]</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="card">
+<pre>
+  <code class="language-python">ktch_pivot = train.pivot_table(index='KitchenAbvGr',
                                   values='SalePrice',aggfunc=np.median)
-  ktch_pivot.plot(kind='bar', color='green')
-  plt.xlabel('Kitchen Above Ground(?)')
+  ktch_pivot.plot(kind='bar', color='blue')
+  plt.xlabel('Total Rooms Above Ground')
   plt.ylabel('Median Sale Price')
   plt.show()
 </code></pre>
+</div>
+
+<div class="container">
+  <img class="img-fluid" src="{{site.baseurl}}/assets/images/prj1/prj1_11.png">
+</div>
+<br>
+<!--------------------------------------->
+
+<div class="container-fluid" style="font-size: 12pt; text-align: center;">
+  <b>Removing Outliers</b>
 </div>
 
 <div class="card">
 <pre>
-    <code class="language-python"># Removing Outliers
-
-  livArea = plt.scatter(x=train['GrLivArea'],y=response)
+  <code class="language-python">livArea = plt.scatter(x=train['GrLivArea'],y=response,color='red')
   plt.xlabel('Above Ground Living Area (ft^2)')
   plt.ylabel('Median Sale Price')
-  plt.title('LIVING AREA')
+  plt.title('Living Area: Outliers')
   plt.show()
+</code></pre>
+</div>
+<div class="container">
+  <img class="img-fluid" src="{{site.baseurl}}/assets/images/prj1/prj1_12.png">
+</div>
+<br>
 
-  train = train[train['GrLivArea'] < 4000]
+<div class="card">
+<pre>
+  <code class="language-python">train = train[train['GrLivArea'] < 4000]
   response = np.log(train.SalePrice)
-  livArea = plt.scatter(x=train['GrLivArea'],y=response)
+  livArea = plt.scatter(x=train['GrLivArea'],y=response,color='blue')
   plt.xlabel('Above Ground Living Area (ft^2)')
   plt.ylabel('Median Sale Price')
-  plt.title('Outliers Removed')
+  plt.title('Living Area: Outliers Removed')
   plt.show()
+</code></pre>
+</div>
+<div class="container">
+  <img class="img-fluid" src="{{site.baseurl}}/assets/images/prj1/prj1_13.png">
+</div>
+<br>
 
-  garageArea = plt.scatter(x=train['GarageArea'],y=response)
+<div class="card">
+<pre>
+  <code class="language-python">garageArea = plt.scatter(x=train['GarageArea'],y=response,color='red')
   plt.xlabel('Garage Area (ft^2)')
   plt.ylabel('Median Sale Price')
-  plt.title('GARAGE AREA')
+  plt.title('Garage Area: Outliers')
   plt.show()
+</code></pre>
+</div>
+<div class="container">
+  <img class="img-fluid" src="{{site.baseurl}}/assets/images/prj1/prj1_14.png">
+</div>
+<br>
 
-  train = train[train['GarageArea'] < 1200]
+<div class="card">
+<pre>
+  <code class="language-python">train = train[train['GarageArea'] < 1200]
   response = np.log(train.SalePrice)
-  garageArea = plt.scatter(x=train['GarageArea'],y=response)
+  garageArea = plt.scatter(x=train['GarageArea'],y=response,color='blue')
   plt.xlabel('Garage Area (ft^2)')
   plt.ylabel('Median Sale Price')
-  plt.title('Outliers Removed')
+  plt.title('Garage Area: Outliers Removed')
   plt.show()
+</code></pre>
+</div>
+<div class="container">
+  <img class="img-fluid" src="{{site.baseurl}}/assets/images/prj1/prj1_15.png">
+</div>
+<br>
 
-  porch_plot = plt.scatter(x=train['EnclosedPorch'],y=response)
+<div class="card">
+<pre>
+  <code class="language-python">porch_plot = plt.scatter(x=train['EnclosedPorch'],y=response,color='red')
   plt.xlabel('Enclosed Porch Area (ft^2)')
   plt.ylabel('Median Sale Price')
-  plt.title('ENCLOSED PORCH')
+  plt.title('Enclosed Porch Area: Outliers')
   plt.show()
+</code></pre>
+</div>
+<div class="container">
+  <img class="img-fluid" src="{{site.baseurl}}/assets/images/prj1/prj1_16.png">
+</div>
+<br>
 
-  train = train[train['EnclosedPorch'] < 400]
+<div class="card">
+<pre>
+  <code class="language-python">train = train[train['EnclosedPorch'] < 400]
   response = np.log(train.SalePrice)
-  porch_plot = plt.scatter(x=train['EnclosedPorch'],y=response)
+  porch_plot = plt.scatter(x=train['EnclosedPorch'],y=response,color='blue')
   plt.xlabel('Enclosed Porch Area (ft^2)')
   plt.ylabel('Median Sale Price')
-  plt.title('Outliers Removed')
+  plt.title('Enclosed Porch Area: Outliers Removed')
   plt.show()
 </code></pre>
 </div>
 
+<div class="container">
+  <img class="img-fluid" src="{{site.baseurl}}/assets/images/prj1/prj1_17.png">
+</div>
 <br>
+
+<div class="container-fluid">
+  Return to <a href="#top">top</a>
+</div>
+
 <hr>
 <h4 id="sec4">Feature Encoding</h4>
+<br>
+
+<div class="container-fluid" style="font-size: 12pt; text-align: center;">
+  <b>Handling Non-Numeric Variables</b>
+</div>
 
 <div class="card">
 <pre>
-  <code class="language-python"># Handling Non-Numeric Variables
-  #-------------------------------
-
-  qual_feat = train.select_dtypes(exclude=[np.number])
+  <code class="language-python">qual_feat = train.select_dtypes(exclude=[np.number])
   quals = qual_feat.columns.values[np.newaxis]
   print('Qualitative Variables: \n',quals,'\n')
 </code></pre>
 </div>
 
-
+<div class="container-fluid">
+<b>Qualitative Variables</b>:<br>
+ [['MSZoning' 'Street' 'Alley' 'LotShape' 'LandContour' 'Utilities'
+  'LotConfig' 'LandSlope' 'Neighborhood' 'Condition1' 'Condition2'
+  'BldgType' 'HouseStyle' 'RoofStyle' 'RoofMatl' 'Exterior1st'
+  'Exterior2nd' 'MasVnrType' 'ExterQual' 'ExterCond' 'Foundation'
+  'BsmtQual' 'BsmtCond' 'BsmtExposure' 'BsmtFinType1' 'BsmtFinType2'
+  'Heating' 'HeatingQC' 'CentralAir' 'Electrical' 'KitchenQual'
+  'Functional' 'FireplaceQu' 'GarageType' 'GarageFinish' 'GarageQual'
+  'GarageCond' 'PavedDrive' 'PoolQC' 'Fence' 'MiscFeature' 'SaleType'
+  'SaleCondition']]
+</div>
+<br>
 
 <div class="card">
 <pre>
@@ -520,32 +728,48 @@ and the top five negatively correlated predictors.
   train, test = encoder(train, test)
 </code></pre>
 </div>
+<div class="container-fluid">
 View the encoder module on my <a href="https://github.com/damani-14/Kaggle/blob/master/HousePrice/encoder.py">GitHub</a>.
+</div>
 <br>
+
+<div class="container-fluid">
+  Return to <a href="#top">top</a>
+</div>
 
 <hr>
 <h4 id="sec5">Null Values</h4>
+<br>
+
+<div class="container-fluid" style="font-size: 12pt; text-align: center;">
+  <b>Visualizing</b>
+</div>
 
 <div class="card">
 <pre>
-  <code class="language-python"># Handling Null Values
-  # ---------------------
-
-    # Visualizing
-
-  nulls = pd.DataFrame(train.isnull().sum().sort_values(ascending=False)[:25])
+  <code class="language-python">nulls = pd.DataFrame(train.isnull().sum().sort_values(ascending=False)[:25])
   nulls.columns = ['Null Count']
   nulls.index.name = 'PREDICTOR'
   print(nulls)
-
-    # Interpolation
-
-  data = train.select_dtypes(include=[np.number]).interpolate().dropna()
-  print('\n Interp_NewNulls: \n', sum(data.isnull().sum() != 0))
 </code></pre>
 </div>
 
+<div class="container-fluid" style="font-size: 12pt; text-align: center;">
+  <b>Interpolation</b>
+</div>
+
+<div class="card">
+<pre>
+  <code class="language-python">data = train.select_dtypes(include=[np.number]).interpolate().dropna()
+  print('\n Interp_NewNulls: \n', sum(data.isnull().sum() != 0))
+</code></pre>
+</div>
 <br>
+
+<div class="container-fluid">
+  Return to <a href="#top">top</a>
+</div>
+
 <hr>
 <h4 id="sec6">Multiple Regression Model</h4>
 
