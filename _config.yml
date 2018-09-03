@@ -22,13 +22,13 @@ project_two_url: projects/project2
 project_two_icon: photo_camera
 
 
-project_three: "Big Data: Wrangling large data sets in MATLAB, Python, and R"
+project_three: "Big Data: Wrangling large data sets in MATLAB, Python, and R (Developing)"
 project_three_description: Data processing and algorithm development.
 project_three_url: projects/project3
 project_three_icon: hotel
 
 
-project_four: "Remote Sensing: Image classification using S2TBX"
+project_four: "Remote Sensing: Image classification using S2TBX (Developing)"
 project_four_description: Image classification and analysis using the Sentinel-2 Toolbox.
 project_four_url: projects/project4
 project_four_icon: restaurant
