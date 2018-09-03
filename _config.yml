@@ -22,7 +22,7 @@ project_two_url: projects/project2
 project_two_icon: photo_camera
 
 
-project_three: "Big Data: Wrangling large data sets in MATLAB, Python, and R (Developing)"
+project_three: "Big Data: Wrangling large data sets in MATLAB, Python, and R (Forthcoming)"
 project_three_description: Data processing and algorithm development.
 project_three_url: projects/project3
 project_three_icon: hotel
