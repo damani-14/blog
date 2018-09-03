@@ -1,6 +1,414 @@
 ---
 layout: default
-title:  "Coming Soon: Annual Crime Statistics in the Buroughs of London"
+title: "Gospatial Analysis: Visualizing Crime in QGIS 3"
 categories: geospatial project2
 image: assets/images/project2.png
 ---
+
+<hr>
+<br>
+<h4 id="top"><b>Investigating Crime Occurrence in London Using QGIS With Data Reduction in R</b></h4>
+<br>
+<p>
+3 September, 2018
+</p>
+<br>
+<p style="font-size: 14pt;"><b>Tools</b></p>
+<p>QGIS 3 | R | ESRI Developer Tools
+</p>
+<p style="font-size: 14pt;"><b>Overview</b></p>
+<p>
+Visualizing annual crime occurrence in the city of London, England broken down by Lower Super Output Area (LSOA) using 13,000,000+ observations of crime records by month from January 2008 to December 2016.
+All data reduction and charting was performed in R. Geospatial visualizations were
+designed in QGIS 3.
+</p>
+
+<p>ESRI shapefiles and associated data can be found here:<br>
+<a href="https://data.london.gov.uk">London Datastore</a>
+<br><br>
+Crime data can be found here:<br>
+<a href="https://www.kaggle.com/jboysen/london-crime/home">London Crime Data, 2008-2016</a>
+</p>
+<br>
+
+<p style="font-size: 14pt;"><b>Explore the Data</b></p>
+<p>View the data from 2008-2015 in this web application I developed for this project.
+</p>
+<div class="card">
+<a href="https://tinyurl.com/ybhssc47"><img class="img-fluid" src="{{site.baseurl}}/assets/images/appLondon.png"></a>
+<a style="text-align: center;" href="https://tinyurl.com/ybhssc47">Launch the app!</a>
+</div>
+
+<hr>
+
+<!---TABLE OF CONTENTS--->
+<p style="font-size: 14pt;">
+  <b>Table of Contents</b>
+</p>
+
+<div class="container-fluid">
+  <table class="table table-sm table-hover">
+    <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">Section</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td><a href="#sec1">Libraries</a></td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td><a href="#sec2">Data Reduction</a></td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td><a href="#sec3">Creating a Primary Key</a></td>
+      </tr>
+      <tr>
+        <th scope="row">4</th>
+        <td><a href="#sec4">Record Parsing</a></td>
+      </tr>
+      <tr>
+        <th scope="row">5</th>
+        <td><a href="#sec5">Data Visualization & Chloropleth Maps</a></td>
+      </tr>
+      <tr>
+        <th scope="row"></th>
+        <td><a href="#sec5.1">2008</a> | <a href="#sec5.2">2009</a> | <a href="#sec5.3">2010</a> | <a href="#sec5.4">2011</a></td>
+      </tr>
+      <tr>
+        <th scope="row"></th>
+        <td><a href="#sec5.5">2012</a> | <a href="#sec5.6">2013</a> | <a href="#sec5.7">2014</a> | <a href="#sec5.8">2015</a></td>
+      </tr>
+      <th scope="row">6</th>
+      <td><a href="#sec6">Future Additions</a>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<!---SECTION HEADER--->
+<hr>
+<h4 id="sec1"><b>Importing the Necessary Libraries</b></h4>
+
+<!---CODE--->
+<div class="card">
+<pre><code class="language-r">library(reshape2)
+library(ggplot2)
+
+crime = read.csv('lsoaCrime.csv')
+sub = crime[,c(-2:-4,-7)]
+train.crime = subset(sub, year < 2016)
+test.crime = subset(sub, year >= 2016)
+</code></pre>
+</div>
+
+<!---SECTION HEADER--->
+<hr>
+<h4 id="sec2"><b>Data Reduction</b></h4>
+
+<!---CODE--->
+<div class="card">
+<pre><code class="language-r"># Data Reduction
+#-----------------------------
+lsoa_enc = as.numeric(factor(train.crime$lsoa_code))
+train.enc = cbind(lsoa_enc,train.crime[,2:3])
+train.melt = melt(train.enc, id=c("lsoa_enc","year"))
+train.years = dcast(train.melt, lsoa_enc+year~variable, sum)
+
+lsoa_enc2 = as.numeric(factor(test.crime$lsoa_code))
+test.enc = cbind(lsoa_enc2,test.crime[,2:3])
+test.melt = melt(test.enc, id=c("lsoa_enc2","year"))
+test.years = dcast(test.melt, lsoa_enc2+year~variable, sum)
+</code></pre>
+</div>
+
+<!---SECTION HEADER--->
+<hr>
+<h4 id="sec3"><b>Creating a Primary Key</b></h4>
+
+<!---CODE--->
+<div class="card">
+<pre><code class="language-r"># LSOA Encoding Key
+#-----------------------------
+enc.bind = cbind(data.frame(train.crime$lsoa_code), data.frame(lsoa_enc))
+key = melt(enc.bind, id = c("train.crime.lsoa_code", "lsoa_enc"))
+primary.key = dcast(key, train.crime.lsoa_code + lsoa_enc ~ .)
+rm(key,enc.bind,lsoa_enc)
+primary.key = subset(primary.key[,-3])
+</code></pre>
+</div>
+
+<!---SECTION HEADER--->
+<hr>
+<h4 id="sec4"><b>Parsing</b></h4>
+
+<!---CODE--->
+<div class="card">
+<pre><code class="language-r"># Annual Dataframes for GIS
+#-----------------------------
+
+write.csv(file="primary.key.csv",x=primary.key)
+
+train.08 = merge(primary.key, subset(train.years, train.years$year == 2008), by="lsoa_enc")
+colnames(train.08)[2] = "LSOA11CD"
+colnames(train.08)[4] = "crime08"
+write.csv(file="train.08.csv",x=train.08)
+
+train.09 = merge(primary.key, subset(train.years, train.years$year == 2009), by="lsoa_enc")
+colnames(train.09)[2] = "LSOA11CD"
+colnames(train.09)[4] = "crime09"
+write.csv(file="train.09.csv",x=train.09)
+
+train.10 = merge(primary.key, subset(train.years, train.years$year == 2010), by="lsoa_enc")
+colnames(train.10)[2] = "LSOA11CD"
+colnames(train.10)[4] = "crime10"
+write.csv(file="train.10.csv",x=train.10)
+
+train.11 = merge(primary.key, subset(train.years, train.years$year == 2011), by="lsoa_enc")
+colnames(train.11)[2] = "LSOA11CD"
+colnames(train.11)[4] = "crime11"
+write.csv(file="train.11.csv",x=train.11)
+
+train.12 = merge(primary.key, subset(train.years, train.years$year == 2012), by="lsoa_enc")
+colnames(train.12)[2] = "LSOA11CD"
+colnames(train.12)[4] = "crime12"
+write.csv(file="train.12.csv",x=train.12)
+
+train.13 = merge(primary.key, subset(train.years, train.years$year == 2013), by="lsoa_enc")
+colnames(train.13)[2] = "LSOA11CD"
+colnames(train.13)[4] = "crime13"
+write.csv(file="train.13.csv",x=train.13)
+
+train.14 = merge(primary.key, subset(train.years, train.years$year == 2014), by="lsoa_enc")
+colnames(train.14)[2] = "LSOA11CD"
+colnames(train.14)[4] = "crime14"
+write.csv(file="train.14.csv",x=train.14)
+
+train.15 = merge(primary.key, subset(train.years, train.years$year == 2015), by="lsoa_enc")
+colnames(train.15)[2] = "LSOA11CD"
+colnames(train.15)[4] = "crime15"
+write.csv(file="train.15.csv",x=train.15)
+
+top.08 = train.08[order(train.08$crime08,decreasing=TRUE),][1:10,]
+top.09 = train.09[order(train.09$crime09,decreasing=TRUE),][1:10,]
+top.10 = train.10[order(train.10$crime10,decreasing=TRUE),][1:10,]
+top.11 = train.11[order(train.11$crime11,decreasing=TRUE),][1:10,]
+top.12 = train.12[order(train.12$crime12,decreasing=TRUE),][1:10,]
+top.13 = train.13[order(train.13$crime13,decreasing=TRUE),][1:10,]
+top.14 = train.14[order(train.14$crime14,decreasing=TRUE),][1:10,]
+top.15 = train.15[order(train.15$crime15,decreasing=TRUE),][1:10,]
+</code></pre>
+</div>
+
+<!---SECTION HEADER--->
+<hr>
+<h4 id="sec5"><b>Data Visualization: R</b></h4>
+
+<!---CODE--->
+<div class="card" id="sec5.1">
+<pre><code class="language-r">ggplot(top.08, aes(x=top.08$LSOA11CD, y=top.08$crime08)) +
+  geom_bar(stat='identity', color="black",fill="lightgreen") +
+  ggtitle("Crime Occurrence by LSOA, 2008") +
+  theme_set(theme_gray(base_size = 14)) +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  ylab("Total Crimes") + xlab("LSOA") +
+  coord_flip()
+</code></pre>
+</div>
+<br>
+
+<!---IMAGE CONTAINER--->
+<div class="container">
+<img class="img-fluid" src="{{site.baseurl}}/assets/images/prj2/bar08.png">
+</div>
+<div class="container">
+<img class="img-fluid" src="{{site.baseurl}}/assets/images/prj2/crime08.png">
+Return to <a href="#top">top</a><br><br>
+</div>
+<hr>
+<br>
+
+
+<div class="card" id="sec5.2">
+<pre><code class="language-r">ggplot(top.09, aes(x=top.09$LSOA11CD, y=top.09$crime09)) +
+  geom_bar(stat='identity', color="black",fill="lightgreen") +
+  ggtitle("Crime Occurrence by LSOA, 2009") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  ylab("Total Crimes") + xlab("LSOA") +
+  coord_flip()
+dev.print(file="bar09.png", device=png, width=1108, height=868)
+</code></pre>
+</div>
+<br>
+
+<!---IMAGE CONTAINER--->
+<div class="container">
+<img class="img-fluid" src="{{site.baseurl}}/assets/images/prj2/bar09.png">
+</div>
+<div class="container">
+<img class="img-fluid" src="{{site.baseurl}}/assets/images/prj2/crime09.png">
+Return to <a href="#top">top</a><br><br>
+</div>
+<hr>
+<br>
+
+<div class="card" id="sec5.3">
+<pre><code class="language-r">ggplot(top.10, aes(x=top.10$LSOA11CD, y=top.10$crime10)) +
+  geom_bar(stat='identity', color="black",fill="lightgreen") +
+  ggtitle("Crime Occurrence by LSOA, 2010") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  ylab("Total Crimes") + xlab("LSOA") +
+  coord_flip()
+</code></pre>
+</div>
+<br>
+
+<!---IMAGE CONTAINER--->
+<div class="container">
+<img class="img-fluid" src="{{site.baseurl}}/assets/images/prj2/bar10.png">
+</div>
+<div class="container">
+<img class="img-fluid" src="{{site.baseurl}}/assets/images/prj2/crime10.png">
+Return to <a href="#top">top</a><br><br>
+</div>
+<hr>
+<br>
+
+<div class="card" id="sec5.4">
+<pre><code class="language-r">ggplot(top.11, aes(x=top.11$LSOA11CD, y=top.11$crime11)) +
+  geom_bar(stat='identity', color="black",fill="lightgreen") +
+  ggtitle("Crime Occurrence by LSOA, 2011") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  ylab("Total Crimes") + xlab("LSOA") +
+  coord_flip()
+</code></pre>
+</div>
+<br>
+
+<!---IMAGE CONTAINER--->
+<div class="container">
+<img class="img-fluid" src="{{site.baseurl}}/assets/images/prj2/bar11.png">
+</div>
+<div class="container">
+<img class="img-fluid" src="{{site.baseurl}}/assets/images/prj2/crime11.png">
+Return to <a href="#top">top</a><br><br>
+</div>
+<hr>
+<br>
+
+<div class="card" id="sec5.5">
+<pre><code class="language-r">ggplot(top.11, aes(x=top.12$LSOA11CD, y=top.12$crime12)) +
+  geom_bar(stat='identity', color="black",fill="lightgreen") +
+  ggtitle("Crime Occurrence by LSOA, 2012") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  ylab("Total Crimes") + xlab("LSOA") +
+  coord_flip()
+</code></pre>
+</div>
+<br>
+
+<!---IMAGE CONTAINER--->
+<div class="container">
+<img class="img-fluid" src="{{site.baseurl}}/assets/images/prj2/bar12.png">
+</div>
+<div class="container">
+<img class="img-fluid" src="{{site.baseurl}}/assets/images/prj2/crime12.png">
+Return to <a href="#top">top</a><br><br>
+</div>
+<hr>
+<br>
+
+<div class="card" id="sec5.6">
+<pre><code class="language-r">ggplot(top.13, aes(x=top.13$LSOA11CD, y=top.13$crime13)) +
+  geom_bar(stat='identity', color="black",fill="lightgreen") +
+  ggtitle("Crime Occurrence by LSOA, 2013") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  ylab("Total Crimes") + xlab("LSOA") +
+  coord_flip()
+</code></pre>
+</div>
+<br>
+
+<!---IMAGE CONTAINER--->
+<div class="container">
+<img class="img-fluid" src="{{site.baseurl}}/assets/images/prj2/bar13.png">
+</div>
+<div class="container">
+<img class="img-fluid" src="{{site.baseurl}}/assets/images/prj2/crime13.png">
+Return to <a href="#top">top</a><br><br>
+</div>
+<hr>
+<br>
+
+<div class="card" id="sec5.7">
+<pre><code class="language-r">ggplot(top.14, aes(x=top.14$LSOA11CD, y=top.14$crime14)) +
+  geom_bar(stat='identity', color="black",fill="lightgreen") +
+  ggtitle("Crime Occurrence by LSOA, 2014") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  ylab("Total Crimes") + xlab("LSOA") +
+  coord_flip()
+</code></pre>
+</div>
+<br>
+
+<!---IMAGE CONTAINER--->
+<div class="container">
+<img class="img-fluid" src="{{site.baseurl}}/assets/images/prj2/bar14.png">
+</div>
+<div class="container">
+<img class="img-fluid" src="{{site.baseurl}}/assets/images/prj2/crime14.png">
+Return to <a href="#top">top</a><br><br>
+</div>
+<hr>
+<br>
+
+<div class="card" id="sec5.8">
+<pre><code class="language-r">ggplot(top.15, aes(x=top.15$LSOA11CD, y=top.15$crime15)) +
+  geom_bar(stat='identity', color="black",fill="lightgreen") +
+  ggtitle("Crime Occurrence by LSOA, 2015") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  ylab("Total Crimes") + xlab("LSOA") +
+  coord_flip()
+</code></pre>
+</div>
+<br>
+
+<!---IMAGE CONTAINER--->
+<div class="container">
+<img class="img-fluid" src="{{site.baseurl}}/assets/images/prj2/bar15.png">
+</div>
+<div class="container">
+<img class="img-fluid" src="{{site.baseurl}}/assets/images/prj2/crime15.png">
+Return to <a href="#top">top</a><br>
+</div>
+
+
+<!---SECTION HEADER--->
+<hr>
+<h4 id="sec6"><b>Future Additions</b></h4>
+
+<table class="table table-sm table-light table-hover">
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Populate training and test data sets with additional features for use in a regression model to predict crime occurrence by LSOA (4,385) in 2016.</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Develop explorative widgets in JavaScript using ESRI's Web Appbuilder extensible framework to indlude in prototype.</td>
+    </tr>
+    <tr>
+  </tbody>
+</table>
+
+
+<!---RETURN FEATURE--->
+<div class="container-fluid">
+  Return to <a href="#top">top</a>
+</div>
+
+<hr>
