@@ -11,25 +11,25 @@ display_footer: inital  #change this to 'none' if you want to hide the footer co
 parallax_image_one: assets/images/bg-5.jpg # These are the images used for the parallax background
 parallax_image_two: assets/images/bg-5.jpg
 
-project_one: "Machine Learning: Predictive Modelling in Python and R"
-project_one_description: Supervised and unsupervised exercises using R, Pandas, NumPy, SciPy, and SciKit-Learn.
+project_one: "Machine Learning: Predictive Models in Python"
+project_one_description: Predictive Modelling using Pandas, NumPy, SciPy, and SciKit-Learn.
 project_one_url: projects/project1
 project_one_icon: location_on
 
-project_two: "Geospatial Analysis: Statistical Visualizations using QGIS"
-project_two_description: Predictive modelling and geospatial analysis using Quantum GIS and R.
+project_two: "Geospatial Analysis: Data Visualization in QGIS"
+project_two_description: Data Visualization using Quantum GIS, R, and ESRI Developer Tools.
 project_two_url: projects/project2
 project_two_icon: photo_camera
 
 
-project_three: "Big Data: Wrangling Continuous Data in MATLAB, Python, and R"
-project_three_description: Data processing and algorithm development using several statistical programming environments and libraries.
+project_three: "Big Data: Wrangling large data sets in MATLAB, Python, and R"
+project_three_description: Data processing and algorithm development.
 project_three_url: projects/project3
 project_three_icon: hotel
 
 
-project_four: "Remote Sensing: Image Classification using Sentinel-2 Data and S2TBX"
-project_four_description: Image classification and analysis using the Sentinel-2 Toolbox (S2TBX), QGIS, Python, and R.
+project_four: "Remote Sensing: Image classification using S2TBX"
+project_four_description: Image classification and analysis using the Sentinel-2 Toolbox.
 project_four_url: projects/project4
 project_four_icon: restaurant
 
@@ -47,8 +47,10 @@ syntax_highlighting: true
 skills:
   - name: atom
   - name: bootstrap
+  - name: css3
   - name: git
   - name: github
+  - name: html5
   - name: illustrator
   - name: mysql
 
