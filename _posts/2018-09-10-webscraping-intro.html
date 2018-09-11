@@ -1,0 +1,182 @@
+---
+layout: default
+title:  "Webscraping with BS4"
+categories: python textmining
+image: assets/images/pyLogo.png
+---
+<b>10 September, 2018</b>
+<br>
+Wrangling and analyzing large amounts of unstructured data is a powerful skill I would like to learn more about.
+<br><br>
+This post summarizes the preliminary steps toward developing a dynamic web scraper for conducting sentiment analysis.
+
+<hr>
+<h4 id="sec1"><b>Summary</b></h4>
+<div class="container-fluid">
+First, I need a few packages:
+</div>
+
+<!---CODE--->
+<div class="card">
+<pre><code class="language-python">from bs4 import BeautifulSoup as soup
+from urllib.request import urlopen as uReq
+</code></pre>
+</div>
+<br>
+
+<div class="container-fluid">
+Here I'm selecting a webpage, pulling the raw data (html, js):
+</div>
+
+<br>
+
+<div class="card">
+<pre><code class="language-python"># NPR News: Politics
+my_url = 'https://www.npr.org/sections/politics/'
+
+uClient = uReq(my_url)
+
+page_html = uClient.read()
+
+uClient.close()
+</code></pre>
+</div>
+<br>
+
+<div class="container-fluid">
+Now I can create a 'soup' from the raw data, and parse it into concise summaries of each article:
+</div>
+
+<br>
+
+<div class="card">
+<pre><code class="language-python">page_soup = soup(page_html, "html.parser")
+
+filename = "nprPolitics.csv"
+f = open(filename, "w")
+headers = "date, title, summary\n"
+f.write(headers)
+
+for article in articles:
+    date = article.find("p",{"class":"teaser"}).time["datetime"]
+    title = article.div.a.img["alt"]
+
+    for i in range(len(article.find("p",{"class":"teaser"}).text)):
+        if article.find("p",{"class":"teaser"}).text[i] == "\x95":
+            summary = article.find("p",{"class":"teaser"}).text[i+2:]
+
+    print("date: " + date)
+    print("title: " + title)
+    print("summary: " + summary, "\n")
+    f.write(date + "," + title.replace(", "," ") + "," + summary.replace(", ","") + "\n")
+</code></pre>
+</div>
+<br>
+<hr>
+<div class="container-fluid">
+Taking a look at the output for 9/10/18:
+</div>
+<br>
+<div class="container-fluid">
+<b>date</b>: 2018-09-10
+<br><b>title</b>: 'Low IQ,' 'SPECTACULAR,' 'Dog': How Trump Tweets About African-Americans
+<br><b>summary</b>: NPR examined Trump's Twitter feed this summer, which shows a snapshot of a president who attacks black public figures who criticize him, while praising black celebrities who support him.
+<br><br>
+<b>date</b>: 2018-09-10
+<br><b>title</b>: On The Sidelines Of Democracy: Exploring Why So Many Americans Don't Vote
+<br><b>summary</b>: In recent midterms, 4 in 10 eligible voters cast ballots. Nonvoters talk of apathy, disgust, barriers and other reasons. But those who don't vote, and their interests, can be ignored by candidates.
+<br><br>
+<b>date</b>: 2018-09-10
+<br><b>title</b>: Bolton: International Criminal Court Will Face Repercussions If Americans Prosecuted
+<br><b>summary</b>: National Security Adviser John Bolton says the U.S. will do all it can to protect Americans from ICC action — calling the proposed investigation of war crimes in Afghanistan "utterly unfounded."
+<br><br>
+<b>date</b>: 2018-09-10
+<br><b>title</b>: Judge Orders Gag, Chides Prosecutors In Case Of Accused Russian Agent Butina
+<br><b>summary</b>: Judge Tanya Chutkan said both prosecutors and the defense had gone too far in their statements. She declined to release Maria Butina from pretrial confinement.
+<br><br>
+<b>date</b>: 2018-09-09
+<br><b>title</b>: Bob Woodward Paints A Presidential Portrait Like No Other For Donald Trump
+<br><b>summary</b>: In this account by the longtime journalist, President Trump appears convinced that the same braggadocio that made him rich and made him president will make the world conform to his own view of it.
+<br><br>
+<b>date</b>: 2018-09-10
+<br><b>title</b>: Trump Administration To Close Palestine Liberation Organization Office In D.C.
+<br><b>summary</b>: The decision will shutter the Palestinian diplomatic mission to the U.S. The U.S. says the PLO has not taken steps to begin 'meaningful negotiations' with Israel.
+<br><br>
+<b>date</b>: 2018-09-10
+<br><b>title</b>: Ken Starr: 'Eerie Echoes' Between Lewinsky Probe And Mueller Investigation Of Trump
+<br><b>summary</b>: The man who nearly brought down President Bill Clinton over the Monica Lewinsky scandal in the late 1990s says he doesn't approve of the way President Trump has disparaged the special counsel.
+<br><br>
+<b>date</b>: 2018-09-10
+<br><b>title</b>: Bob Woodward: 'Great Washington Denial Machine' Driven By Politics, Not Truth
+<br><b>summary</b>: The veteran journalist stands behind the reporting in his new book, Fear, and says that administration officials who have denied quotes attributed to them are acting out of "political necessity."
+<br><br>
+<b>date</b>: 2018-09-10
+<br><b>title</b>: Ken Starr's Memoir 'Contempt' Looks At The Rocky Road To Clinton Impeachment
+<br><b>summary</b>: "An indulgent and prosperous nation readily forgave Bill Clinton and instead blamed the prosecutor," Starr writes of investigating the president. "That would be me."
+<br><br>
+<b>date</b>: 2018-09-08
+<br><b>title</b>: The Resistance At The Kavanaugh Hearings: More Than 200 Arrests
+<br><b>summary</b>: Opponents of Kavanaugh's nomination don't have the votes to derail his confirmation, but protesters voiced their concerns at his hearing about a conservative majority's impact on the Supreme Court.
+<br><br>
+<b>date</b>: 2018-09-08
+<br><b>title</b>: The Russia Investigations: Can There Be A Final Answer On 'Collusion'?
+<br><b>summary</b>: Trump attorneys and the special counsel's office have been discussing a possible interview. But leaks of a new book reveal an ex-Trump lawyer has argued the president should never agree to a sit-down.
+<br><br>
+<b>date</b>: 2018-09-08
+<br><b>title</b>: Kavanaugh Looks On Path To Supreme Court Confirmation, After 4 Days Of Hearings
+<br><b>summary</b>: Nothing during the hearings seemed to change the likelihood that the judge is headed for a spot on the nation's highest court. But the week did help elevate the profiles of two Democratic senators.
+<br><br>
+<b>date</b>: 2018-09-07
+<br><b>title</b>: Obama Begins Midterm Push, Urging Rebuke Of Trump And Politics Of 'Fear And Anger'
+<br><b>summary</b>: The former president, who received an ethics award at the University of Illinois at Urbana-Champaign, is urging people to vote in the midterms.
+<br><br>
+<b>date</b>: 2018-09-07
+<br><b>title</b>: Ex-Trump Aide Papadopoulos, 1st Charged In Russia Probe, Sentenced To 14 Days
+<br><b>summary</b>: Donald Trump's former campaign foreign policy adviser George Papadopoulos was sentenced on Friday after pleading guilty to lying to the FBI about his connections to Russian operatives in 2016.
+<br><br>
+<b>date</b>: 2018-09-07
+<br><b>title</b>: Should Attorney General Investigate 'New York Times' Op-Ed? Yes, Trump Says
+<br><b>summary</b>: The president told reporters he thinks the Justice Department should look into the identity of whoever wrote the column questioning his fitness for office, citing "national security."
+<br><br>
+<b>date</b>: 2018-09-06
+<br><b>title</b>: Where Has Barack Obama Been?
+<br><b>summary</b>: Since he left the White House, former President Obama had stayed quiet, declining to directly challenge his successor. But that's starting to change.
+<br><br>
+<b>date</b>: 2018-09-06
+<br><b>title</b>: Kavanaugh Hearings, Day 3: Booker Has His 'Spartacus Moment'; A Mulligan On Mueller
+<br><b>summary</b>: Thursday began with a squabble over documents and an assertion by Sen. Cory Booker, D-N.J., that he was willing to risk being ousted from the Senate in order to provide information on the nominee.
+<br><br>
+<b>date</b>: 2018-09-07
+<br><b>title</b>: Toxic Algae Seeps Into Florida Congressional Races
+<br><b>summary</b>: Republican candidates are speaking up about environmental issues that have plagued Florida's waters — and tourism industry — this summer, as Democrats say their opponents haven't done enough.
+<br><br>
+<b>date</b>: 2018-09-06
+<br><b>title</b>: Senators Dispute Status Of Released Documents As Questioning Of Kavanaugh Wraps Up
+<br><b>summary</b>: Sen. Cory Booker was the first Democrat to release documents that had been designated as "confidential" as the third day of the Judge Kavanaugh confirmation hearings began.
+<br><br>
+<b>date</b>: 2018-09-07
+<br><b>title</b>: For Older Voters, Getting The Right ID Can Be Especially Tough
+<br><b>summary</b>: Lost birth certificates, name changes and even getting to the DMV can all be challenges when older people try to get a new driver's license in order to vote in states with strict voter ID laws.
+<br><br>
+<b>date</b>: 2018-09-06
+<br><b>title</b>: Twitter Bans Alex Jones And InfoWars; Cites Abusive Behavior
+<br><b>summary</b>: Twitter said it has "permanently suspended" the conspiracy theorist and his InfoWars outlet, citing tweets and videos posted Wednesday that violate Twitter's policy on abusive behavior.
+<br><br>
+<b>date</b>: 2018-09-06
+<br><b>title</b>: Kavanaugh's Confirmation Hearings: What's Wrong With This Picture?
+<br><b>summary</b>: For the Democrats, these hearings are not an exercise in shaping the Supreme Court. They are a series of appeals to their supporters to sympathize with the futility of their predicament.
+<br><br>
+<b>date</b>: 2018-09-06
+<br><b>title</b>: House Speaker Paul Ryan Says Author Of Critical Op-Ed Is 'Living In Dishonesty'
+<br><b>summary</b>: First lady Melania Trump called the writer of an anonymous piece describing President Trump as amoral and petty "cowardly." The New York Times attributed the column to an administration official.
+<br><br>
+<b>date</b>: 2018-09-06
+<br><b>title</b>: Trump Administration Proposes Rule To Allow Longer Detention Of Migrant Children
+<br><b>summary</b>: Under the Flores settlement, immigrant minors can't be held in jail-like settings and can't be held for longer than 20 days. The government's move to circumvent that will likely end up in court.
+</div>
+<br>
+<div class="container-fluid">
+  Return to <a href="#top">top</a>
+</div>
+
+<hr>
