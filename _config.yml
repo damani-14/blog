@@ -16,7 +16,7 @@ project_one_description: Predictive Modelling using Pandas, NumPy, SciPy, and Sc
 project_one_url: projects/project1
 project_one_icon: location_on
 
-project_two: "Geospatial Analysis: Data Visualization in QGIS"
+project_two: "Geospatial Analysis: Data Visualization in QGIS 3.2"
 project_two_description: Data Visualization using Quantum GIS, R, and ESRI Developer Tools.
 project_two_url: projects/project2
 project_two_icon: photo_camera
@@ -28,8 +28,8 @@ project_three_url: projects/project3
 project_three_icon: hotel
 
 
-project_four: "Remote Sensing: Image classification using S2TBX (Developing)"
-project_four_description: Image classification and analysis using the Sentinel-2 Toolbox.
+project_four: "Remote Sensing: Image classification using QGIS SCP (Developing)"
+project_four_description: Image classification and analysis using the Semi-Automatic Classification Plugin for QGIS 2.18
 project_four_url: projects/project4
 project_four_icon: restaurant
 
